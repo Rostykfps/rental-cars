@@ -1,15 +1,8 @@
-import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
+import axios from 'axios';
 
-export const advertsApi = createApi({
-  reducerPath: 'advertsApi',
-  baseQuery: fetchBaseQuery({
-    baseUrl: 'https://65552f1e63cafc694fe7887c.mockapi.io',
-  }),
-  endpoints: (builder) => ({
-    getCarsByPage: builder.query({
-      query: (page = 1, limit = 8) => `advert?page=${page}&limit=${limit}`,
-    }),
-  }),
-});
+axios.defaults.baseURL = 'https://65552f1e63cafc694fe7887c.mockapi.io';
 
-export const { useGetCarsByPageQuery } = advertsApi;
+export const getCarsByPage = async (page = 1, limit = 12) => {
+  const { data } = await axios.get(`advert?page=${page}&limit=${limit}`);
+  return data;
+};

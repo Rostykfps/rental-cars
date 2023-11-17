@@ -1,19 +1,22 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import CarsListItem from '../../components/CarsListItem/CarsListItem';
-import { useGetCarsByPageQuery } from '../../services/apiService';
 import { CarsList, Container, StyledButton } from './CatalogPage.styled';
+import { useDispatch, useSelector } from 'react-redux';
+import { selectAdverts, selectPage } from '../../redux/adverts/selectors';
+import { getCarsByPageThunk } from '../../redux/adverts/operation';
+import { setPage } from '../../redux/adverts/slice';
 
 const CatalogPage = () => {
-  const [page, setPage] = useState(1);
-  const [advertsList, setAdvertsList] = useState([]);
+  const page = useSelector(selectPage);
+  const advertsList = useSelector(selectAdverts);
 
-  const { data } = useGetCarsByPageQuery(page);
-  console.log('data >> ', data);
+  const dispatch = useDispatch();
+
   useEffect(() => {
-    if (data) setAdvertsList((prevData) => [...prevData, ...data]);
-  }, [data]);
+    dispatch(getCarsByPageThunk({ page }));
+  }, [dispatch, page]);
   const handleLoadMore = () => {
-    setPage(page + 1);
+    dispatch(setPage());
   };
 
   return (
@@ -23,7 +26,7 @@ const CatalogPage = () => {
           <CarsListItem data={item} key={index} />
         ))}
       </CarsList>
-      {data?.length === 8 && (
+      {advertsList?.length % 12 === 0 && (
         <StyledButton type="button" onClick={handleLoadMore}>
           Load more
         </StyledButton>
@@ -33,7 +36,3 @@ const CatalogPage = () => {
 };
 
 export default CatalogPage;
-
-{
-  /* <li key={index}>{item.make}</li>  */
-}
