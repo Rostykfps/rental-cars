@@ -32,6 +32,12 @@ export const IconButton = styled.button`
 export const TitleWrapper = styled.div`
   display: flex;
   justify-content: space-between;
+  color: #121417;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 1.5;
+  margin-top: 14px;
+  margin-bottom: 8px;
 `;
 
 export const ItemTitle = styled.p`
@@ -40,6 +46,7 @@ export const ItemTitle = styled.p`
 
 export const ModelSpan = styled.span`
   margin: 0;
+  color: #3470ff;
 `;
 
 export const Price = styled.p`
@@ -49,4 +56,27 @@ export const Price = styled.p`
 
 export const LearnMoreBtn = styled.button`
   width: 100%;
+  /* margin-top: 28px; */
+  border-radius: 12px;
+  background-color: #3470ff;
+  color: #fff;
+  font-family: Manrope;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.43;
+  border: none;
+  padding: 12px 99px;
+  transition: background-color 250ms ease;
+
+  &:hover,
+  &:focus {
+    background-color: #0b44cd;
+  }
+`;
+
+export const DescriptionWrapper = styled.div`
+  height: 112px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 `;

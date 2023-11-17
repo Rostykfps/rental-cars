@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { selectAdverts, selectPage } from '../../redux/adverts/selectors';
 import { getCarsByPageThunk } from '../../redux/adverts/operation';
 import { setPage } from '../../redux/adverts/slice';
+import Filter from '../../components/Filter/Filter';
 
 const CatalogPage = () => {
   const page = useSelector(selectPage);
@@ -21,6 +22,7 @@ const CatalogPage = () => {
 
   return (
     <Container>
+      <Filter />
       <CarsList>
         {advertsList?.map((item, index) => (
           <CarsListItem data={item} key={index} />

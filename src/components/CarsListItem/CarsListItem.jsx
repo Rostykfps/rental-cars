@@ -2,6 +2,7 @@ import DescriptionList from '../DescriptionList/DescriptionList';
 import {
   CarImage,
   CarsItem,
+  DescriptionWrapper,
   IconButton,
   ImageWrapper,
   ItemTitle,
@@ -16,7 +17,7 @@ const CarsListItem = ({ data }) => {
   return (
     <CarsItem>
       <ImageWrapper>
-        <CarImage src={data.img} alt="Car" width="200" />
+        <CarImage src={data.img} alt="Car" width="200" loading="lazy" />
         <IconButton type="button">
           <FavoriteIcon />
         </IconButton>
@@ -27,8 +28,10 @@ const CarsListItem = ({ data }) => {
         </ItemTitle>
         <Price>{data.rentalPrice}</Price>
       </TitleWrapper>
-      <DescriptionList data={data} />
-      <LearnMoreBtn type="button">Learn more</LearnMoreBtn>
+      <DescriptionWrapper>
+        <DescriptionList data={data} />
+        <LearnMoreBtn type="button">Learn more</LearnMoreBtn>
+      </DescriptionWrapper>
     </CarsItem>
   );
 };
