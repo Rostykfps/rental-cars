@@ -15,7 +15,7 @@ export const Header = () => {
         component="nav"
         sx={{ backgroundColor: '#3470FF' }}
       >
-        <Container maxWidth="xl">
+        <Container sx={{ minWidth: '1440px' }}>
           <Toolbar disableGutters>
             <Typography textAlign="center" sx={{ fontSize: '24px' }}>
               Rental cars
