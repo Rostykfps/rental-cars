@@ -1,11 +1,12 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { getCarsByPageThunk } from './operation';
+import { getAllCarsThunk, getCarsByPageThunk } from './operation';
 
 const initialState = {
   advertsList: [],
   page: 1,
   isLoading: false,
   error: null,
+  allAdvertsList: [],
 };
 
 const handlePending = (state) => {
@@ -21,17 +22,24 @@ const advertsSlice = createSlice({
   name: 'adverts',
   initialState,
   reducers: {
-    setPage: (state) => {
-      state.page += 1;
+    setPage: (state, { payload }) => {
+      state.page = payload;
     },
   },
   extraReducers: {
     [getCarsByPageThunk.pending]: handlePending,
     [getCarsByPageThunk.fulfilled](state, { payload }) {
-      state.advertsList.push(...payload);
+      // state.advertsList.push(...payload);
+      state.advertsList = [...state.advertsList, ...payload];
       state.isLoading = false;
     },
     [getCarsByPageThunk.rejected]: handleRejected,
+    [getAllCarsThunk.pending]: handlePending,
+    [getAllCarsThunk.fulfilled](state, { payload }) {
+      state.allAdvertsList = payload;
+      state.isLoading = false;
+    },
+    [getAllCarsThunk.rejected]: handleRejected,
   },
 });
 

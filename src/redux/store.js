@@ -1,6 +1,7 @@
 import { configureStore } from '@reduxjs/toolkit';
 // import { advertsApi } from '../services/apiService';
 import { advertsReducer } from './adverts/slice';
+import { filterReducer } from './filter/slice';
 
 export const store = configureStore({
   // reducer: {
@@ -8,5 +9,8 @@ export const store = configureStore({
   // },
   // middleware: (getDefaultMiddleware) =>
   //   getDefaultMiddleware().concat(advertsApi.middleware),
-  reducer: { adverts: advertsReducer },
+  reducer: {
+    adverts: advertsReducer,
+    filter: filterReducer,
+  },
 });

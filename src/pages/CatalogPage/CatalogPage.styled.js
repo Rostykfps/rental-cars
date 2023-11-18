@@ -6,8 +6,8 @@ export const Container = styled.div`
 
 export const CarsList = styled.ul`
   display: flex;
-  justify-content: space-between;
   flex-wrap: wrap;
+  column-gap: 29px;
   row-gap: 50px;
 `;
 
