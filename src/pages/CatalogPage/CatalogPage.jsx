@@ -20,7 +20,6 @@ import {
   selectPrice,
   selectToMileage,
 } from '../../redux/filter/selectors';
-import { setIsFilter } from '../../redux/filter/slice';
 
 const CatalogPage = () => {
   const page = useSelector(selectPage);

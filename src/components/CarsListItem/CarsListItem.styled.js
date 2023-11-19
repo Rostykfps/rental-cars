@@ -9,6 +9,8 @@ export const ImageWrapper = styled.div`
   position: relative;
   width: 274px;
   height: 268px;
+  background-color: #f7f7fb;
+  border-radius: 14px;
 `;
 
 export const CarImage = styled.img`
@@ -56,7 +58,7 @@ export const Price = styled.p`
 
 export const LearnMoreBtn = styled.button`
   width: 100%;
-  /* margin-top: 28px; */
+  padding: 12px 99px;
   border-radius: 12px;
   background-color: #3470ff;
   color: #fff;
@@ -65,7 +67,6 @@ export const LearnMoreBtn = styled.button`
   font-weight: 600;
   line-height: 1.43;
   border: none;
-  padding: 12px 99px;
   transition: background-color 250ms ease;
 
   &:hover,

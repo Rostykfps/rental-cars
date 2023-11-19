@@ -1,5 +1,17 @@
 import Select from 'react-select';
-import { StyledForm } from './filter.styled';
+import {
+  InputWrapper,
+  InputsBlock,
+  MakeSelect,
+  PriceSelect,
+  StyledButton,
+  StyledForm,
+  StyledInputFrom,
+  StyledInputSpan,
+  StyledInputTo,
+  StyledLabel,
+  customStyles,
+} from './filter.styled';
 // import makes from '../../assets/makes.json';
 import { useDispatch, useSelector } from 'react-redux';
 import {
@@ -107,13 +119,15 @@ const Filter = () => {
   };
 
   return (
-    <div>
+    <>
       <StyledForm onSubmit={handleSubmit}>
-        <label>
+        <StyledLabel>
           Car brand
-          <Select
+          <MakeSelect
             id="makes"
             name="makes"
+            classNamePrefix="react-select"
+            styles={customStyles}
             placeholder="Enter the text"
             onChange={(selectedMake) => setMake(selectedMake)}
             isClearable={true}
@@ -123,13 +137,15 @@ const Filter = () => {
               value: item,
             }))}
           />
-        </label>
-        <label>
+        </StyledLabel>
+        <StyledLabel>
           Price/ 1 hour
-          <Select
+          <PriceSelect
             id="price"
             name="price"
-            placeholder="To $"
+            classNamePrefix="react-select"
+            styles={customStyles}
+            placeholder="To &nbsp;$"
             // onChange={handleChangePrice}
             onChange={(selectedPrice) => setPrice(selectedPrice)}
             // formatOptionLabel={formatOptionLabel}
@@ -137,7 +153,7 @@ const Filter = () => {
             // value={price}
             value={
               price && {
-                label: `To ${price?.label}$`,
+                label: `To  ${price?.label}$`,
                 value: `${price?.value}`,
               }
             }
@@ -146,27 +162,33 @@ const Filter = () => {
               value: item,
             }))}
           />
-        </label>
-        <label>
-          Сar mileage / km
-          <div>
-            <input
+        </StyledLabel>
+        <InputsBlock>
+          <StyledLabel>
+            Сar mileage / km
+            <InputWrapper>
+              <StyledInputSpan>From</StyledInputSpan>
+              <StyledInputFrom
+                type="text"
+                // placeholder="From"
+                value={formatMileage(fromMileage)}
+                onChange={handleInputFromMileage}
+              />
+            </InputWrapper>
+          </StyledLabel>
+          <InputWrapper>
+            <StyledInputSpan>To</StyledInputSpan>
+            <StyledInputTo
               type="text"
-              placeholder="From"
-              value={formatMileage(fromMileage)}
-              onChange={handleInputFromMileage}
-            />
-            <input
-              type="text"
-              placeholder="To"
+              // placeholder="To"
               value={formatMileage(toMileage)}
               onChange={handleInputToMileage}
             />
-          </div>
-        </label>
-        <button type="submit">Search</button>
+          </InputWrapper>
+        </InputsBlock>
+        <StyledButton type="submit">Search</StyledButton>
       </StyledForm>
-    </div>
+    </>
   );
 };
 

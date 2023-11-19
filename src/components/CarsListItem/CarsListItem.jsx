@@ -12,12 +12,21 @@ import {
   TitleWrapper,
 } from './CarsListItem.styled';
 import FavoriteIcon from '../FavoriteIcon/FavoriteIcon';
+import noCarImage from '../../assets/images/no-car.png';
 
 const CarsListItem = ({ data }) => {
   return (
     <CarsItem>
       <ImageWrapper>
-        <CarImage src={data.img} alt="Car" width="200" loading="lazy" />
+        <CarImage
+          src={data.img}
+          alt="Car"
+          width="200"
+          loading="lazy"
+          onError={(event) => {
+            event.currentTarget.src = noCarImage;
+          }}
+        />
         <IconButton type="button">
           <FavoriteIcon />
         </IconButton>
