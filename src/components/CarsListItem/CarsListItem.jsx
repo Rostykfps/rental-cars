@@ -13,8 +13,24 @@ import {
 } from './CarsListItem.styled';
 import FavoriteIcon from '../FavoriteIcon/FavoriteIcon';
 import noCarImage from '../../assets/images/no-car.png';
+import { useDispatch, useSelector } from 'react-redux';
+import { selectFavorites } from '../../redux/favorite/selectors';
+import { addFavorite, removeFavorite } from '../../redux/favorite/slice';
 
 const CarsListItem = ({ data }) => {
+  const favoritesCars = useSelector(selectFavorites);
+  const dispatch = useDispatch();
+
+  const isFavorite = favoritesCars.some((car) => car.id === data.id);
+
+  const handleClick = () => {
+    if (!isFavorite) {
+      dispatch(addFavorite(data));
+      return;
+    }
+    dispatch(removeFavorite(data));
+    console.log('test :>> ', isFavorite, data);
+  };
   return (
     <CarsItem>
       <ImageWrapper>
@@ -27,8 +43,8 @@ const CarsListItem = ({ data }) => {
             event.currentTarget.src = noCarImage;
           }}
         />
-        <IconButton type="button">
-          <FavoriteIcon />
+        <IconButton type="button" onClick={handleClick}>
+          <FavoriteIcon isFavorite={isFavorite} />
         </IconButton>
       </ImageWrapper>
       <TitleWrapper>

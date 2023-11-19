@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import CarsListItem from '../../components/CarsListItem/CarsListItem';
-import { CarsList, Container, StyledButton } from './CatalogPage.styled';
+import { CarsList, Container, StyledButton, Title } from './CatalogPage.styled';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   selectAdverts,
@@ -20,6 +20,7 @@ import {
   selectPrice,
   selectToMileage,
 } from '../../redux/filter/selectors';
+import { setIsFilter } from '../../redux/filter/slice';
 
 const CatalogPage = () => {
   const page = useSelector(selectPage);
@@ -41,6 +42,12 @@ const CatalogPage = () => {
       dispatch(getAllCarsThunk());
     }
   }, [advertsList.length, dispatch, page]);
+
+  useEffect(() => {
+    return () => {
+      dispatch(setIsFilter(false));
+    };
+  }, []);
 
   const handleLoadMore = () => {
     const newPage = page + 1;
@@ -82,6 +89,7 @@ const CatalogPage = () => {
 
   return (
     <Container>
+      <Title>Car Catalog</Title>
       <Filter />
       <CarsList>
         {isFilter && filteredAdverts

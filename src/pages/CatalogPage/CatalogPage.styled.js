@@ -1,7 +1,13 @@
 import styled from 'styled-components';
 
 export const Container = styled.div`
-  padding: 150px 128px;
+  padding: 50px 128px;
+`;
+
+export const Title = styled.h2`
+  text-align: center;
+  font-size: 32px;
+  margin-bottom: 60px;
 `;
 
 export const CarsList = styled.ul`
