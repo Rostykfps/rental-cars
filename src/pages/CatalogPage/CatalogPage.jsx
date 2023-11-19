@@ -14,9 +14,11 @@ import {
 import { setPage } from '../../redux/adverts/slice';
 import Filter from '../../components/Filter/Filter';
 import {
+  selectFromMileage,
   selectIsFilter,
   selectMake,
   selectPrice,
+  selectToMileage,
 } from '../../redux/filter/selectors';
 import { setIsFilter } from '../../redux/filter/slice';
 
@@ -26,6 +28,8 @@ const CatalogPage = () => {
   const allAdvertsList = useSelector(selectAllAdverts);
   const make = useSelector(selectMake);
   const price = useSelector(selectPrice);
+  const fromMileage = useSelector(selectFromMileage);
+  const toMileage = useSelector(selectToMileage);
   const isFilter = useSelector(selectIsFilter);
   const [filteredAdverts, setFilteredAdverts] = useState([]);
 
@@ -37,7 +41,7 @@ const CatalogPage = () => {
       dispatch(getCarsByPageThunk({ page }));
       dispatch(getAllCarsThunk());
     }
-  }, [dispatch, page]);
+  }, [advertsList.length, dispatch, page]);
 
   const handleLoadMore = () => {
     const newPage = page + 1;
@@ -46,17 +50,36 @@ const CatalogPage = () => {
   };
 
   useEffect(() => {
-    const filteredAdverts = allAdvertsList.filter(
-      (advert) => advert.make === make,
-    );
+    const filteredAdverts = allAdvertsList.filter((advert) => {
+      if (make && advert.make !== make) {
+        return false;
+      }
+
+      if (price > 10 && +advert.rentalPrice.replace('$', '') > price) {
+        return false;
+      }
+
+      if (fromMileage && advert.mileage < fromMileage) {
+        return false;
+      }
+
+      if (toMileage && advert.mileage > toMileage) {
+        return false;
+      }
+
+      return true;
+    });
+
+    console.log('filteredAdverts :>> ', filteredAdverts);
+
     if (filteredAdverts.length > 0) {
       setFilteredAdverts(filteredAdverts);
-      dispatch(setIsFilter(true));
+      // dispatch(setIsFilter(true));
       return;
     }
-    setFilteredAdverts(filteredAdverts);
-    dispatch(setIsFilter(false));
-  }, [allAdvertsList, dispatch, make]);
+    setFilteredAdverts([]);
+    // dispatch(setIsFilter(false));
+  }, [allAdvertsList, dispatch, fromMileage, make, price, toMileage]);
 
   return (
     <Container>
@@ -70,7 +93,7 @@ const CatalogPage = () => {
               <CarsListItem data={item} key={index} />
             ))}
       </CarsList>
-      {advertsList?.length % 12 === 0 && (
+      {!isFilter && advertsList?.length % 12 === 0 && (
         <StyledButton type="button" onClick={handleLoadMore}>
           Load more
         </StyledButton>

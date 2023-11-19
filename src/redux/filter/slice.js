@@ -2,7 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
   make: null,
-  price: 10,
+  price: 0,
   fromMileage: 0,
   toMileage: 0,
   isFilter: false,

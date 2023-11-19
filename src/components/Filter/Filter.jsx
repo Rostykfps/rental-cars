@@ -7,7 +7,12 @@ import {
   selectMake,
   selectPrice,
 } from '../../redux/filter/selectors';
-import { setFilter, setMake, setPrice } from '../../redux/filter/slice';
+import {
+  setFilter,
+  setIsFilter,
+  setMake,
+  setPrice,
+} from '../../redux/filter/slice';
 import { useState } from 'react';
 import { selectAllAdverts } from '../../redux/adverts/selectors';
 
@@ -17,11 +22,13 @@ const Filter = () => {
   const allAdvertsList = useSelector(selectAllAdverts);
   const filter = useSelector(selectFilter);
   const [make, setMake] = useState(null);
-  const [price, setPrice] = useState(10);
+  const [price, setPrice] = useState(0);
+  const [fromMileage, setFromMileage] = useState('');
+  const [toMileage, setToMileage] = useState('');
   const dispatch = useDispatch();
 
   const priceRange = [];
-  for (let i = 0; i <= 500; i += 10) {
+  for (let i = 10; i <= 500; i += 10) {
     priceRange.push(i);
   }
 
@@ -29,20 +36,76 @@ const Filter = () => {
     (a, b) => a.localeCompare(b),
   );
 
-  const handleChangeMake = (event) => {
-    // dispatch(setMake(event?.value));
-    setMake(event?.value);
+  // const handleChangeMake = (event) => {
+  //   // dispatch(setMake(event?.value));
+  //   console.log('event :>> ', event);
+  //   if (!event?.value) {
+  //     setMake(null);
+  //     return;
+  //   }
+  //   setMake(event?.value);
+  // };
+
+  // const handleChangePrice = (event) => {
+  //   // dispatch(setPrice(event?.value));
+  //   if (!event?.value) {
+  //     setPrice(0);
+  //     return;
+  //   }
+  //   setPrice(event?.value);
+  // };
+
+  const handleInputFromMileage = (event) => {
+    setFromMileage(event.target.value);
   };
 
-  const handleChangePrice = (event) => {
-    // dispatch(setPrice(event?.value));
-    setPrice(event?.value);
+  const handleInputToMileage = (event) => {
+    setToMileage(event.target.value);
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(setFilter({ ...filter, make, price }));
+    // dispatch(
+    //   setFilter({ ...filter, make: make.value, price, fromMileage, toMileage }),
+    // );
+    if (make?.value || price?.value || fromMileage || toMileage) {
+      dispatch(
+        setFilter({
+          ...filter,
+          make: make?.value,
+          price: price?.value,
+          fromMileage: Number(fromMileage.replace(/,/g, '')),
+          toMileage: Number(toMileage.replace(/,/g, '')),
+        }),
+      );
+      dispatch(setIsFilter(true));
+      return;
+    }
+    dispatch(setIsFilter(false));
   };
+
+  // const options = makes.map((item) => ({
+  //   label: item,
+  //   value: item,
+  // }));
+  // console.log('options :>> ', options);
+  // const formatOptionLabel = ({ label }, { context }) => (
+  //   <div>
+  //     {context === 'value' && <span>To </span>}
+  //     {label}
+  //     {context === 'value' && <span>$</span>}
+  //   </div>
+  // );
+
+  const formatMileage = (number) => {
+    const formatedNumber = number
+      .toString()
+      .replace(/,/g, '')
+      .replace(/(\d)(?=(\d{3})+$)/g, '$1,');
+
+    return formatedNumber;
+  };
+
   return (
     <div>
       <StyledForm onSubmit={handleSubmit}>
@@ -50,11 +113,11 @@ const Filter = () => {
           Car brand
           <Select
             id="makes"
-            type="text"
             name="makes"
             placeholder="Enter the text"
-            onChange={handleChangeMake}
+            onChange={(selectedMake) => setMake(selectedMake)}
             isClearable={true}
+            value={make}
             options={makes.map((item) => ({
               label: item,
               value: item,
@@ -65,11 +128,19 @@ const Filter = () => {
           Price/ 1 hour
           <Select
             id="price"
-            type="text"
             name="price"
-            placeholder="To"
-            onChange={handleChangePrice}
+            placeholder="To $"
+            // onChange={handleChangePrice}
+            onChange={(selectedPrice) => setPrice(selectedPrice)}
+            // formatOptionLabel={formatOptionLabel}
             isClearable={true}
+            // value={price}
+            value={
+              price && {
+                label: `To ${price?.label}$`,
+                value: `${price?.value}`,
+              }
+            }
             options={priceRange.map((item) => ({
               label: item,
               value: item,
@@ -79,8 +150,18 @@ const Filter = () => {
         <label>
           Сar mileage / km
           <div>
-            <input />
-            <input />
+            <input
+              type="text"
+              placeholder="From"
+              value={formatMileage(fromMileage)}
+              onChange={handleInputFromMileage}
+            />
+            <input
+              type="text"
+              placeholder="To"
+              value={formatMileage(toMileage)}
+              onChange={handleInputToMileage}
+            />
           </div>
         </label>
         <button type="submit">Search</button>
