@@ -13,8 +13,9 @@
   вигляд програми повинен складатися з навігації(оформлення на ваш розсуд) та
   області перегляду.
 
-![Page](./assets/home-page.jpg) ![Page](./assets/catalog-page.jpg)
-![Page](./assets/favorite-page-1.jpg) ![Page](./assets/favorite-page-2.jpg)
+![Page](./src/assets/home-page.jpg) ![Page](./src/assets/catalog-page.jpg)
+![Page](./src/assets/favorite-page-1.jpg)
+![Page](./src/assets/favorite-page-2.jpg)
 
 ## Технічне завдання
 
@@ -65,7 +66,7 @@ Advert
    нові поля! Для наповнення колекції можна взяти
    [adverts.json](https://drive.google.com/file/d/1sDtZQX4awbRiqa5mSagngqKBZeMMRUMO/view).
    Якщо даних не вистачає, або вони не повні - будь ласка, додайте їх
-   самостійно. ![Page](./assets/advert.jpg)
+   самостійно. ![Page](./src/assets/advert.jpg)
 2. Зображення авто можете підібрати самостійно.
 3. В базі має бути від 32 оголошень з різними значеннями (на ваш розсуд).
    Реалізована пагінація, де одна сторінка пагінації повинна вміщати 12
