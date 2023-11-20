@@ -16,9 +16,14 @@ import noCarImage from '../../assets/images/no-car.png';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectFavorites } from '../../redux/favorite/selectors';
 import { addFavorite, removeFavorite } from '../../redux/favorite/slice';
+import ModalWindow from '../ModalWindow/ModalWindow';
+import { useState } from 'react';
+import CarInfo from '../CarInfo/CarInfo';
 
 const CarsListItem = ({ data }) => {
   const favoritesCars = useSelector(selectFavorites);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
   const dispatch = useDispatch();
 
   const isFavorite = favoritesCars.some((car) => car.id === data.id);
@@ -30,6 +35,13 @@ const CarsListItem = ({ data }) => {
     }
     dispatch(removeFavorite(data));
     console.log('test :>> ', isFavorite, data);
+  };
+
+  const handleOpenModal = () => {
+    setIsModalOpen(true);
+  };
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
   };
   return (
     <CarsItem>
@@ -55,8 +67,13 @@ const CarsListItem = ({ data }) => {
       </TitleWrapper>
       <DescriptionWrapper>
         <DescriptionList data={data} />
-        <LearnMoreBtn type="button">Learn more</LearnMoreBtn>
+        <LearnMoreBtn type="button" onClick={handleOpenModal}>
+          Learn more
+        </LearnMoreBtn>
       </DescriptionWrapper>
+      <ModalWindow isOpen={isModalOpen} isClose={handleCloseModal}>
+        <CarInfo />
+      </ModalWindow>
     </CarsItem>
   );
 };

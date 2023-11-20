@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import {
   selectAdverts,
   selectAllAdverts,
+  selectIsLoading,
   selectPage,
 } from '../../redux/adverts/selectors';
 import {
@@ -21,6 +22,7 @@ import {
   selectToMileage,
 } from '../../redux/filter/selectors';
 import { setIsFilter } from '../../redux/filter/slice';
+import Loader from '../../components/Loader/Loader';
 
 const CatalogPage = () => {
   const page = useSelector(selectPage);
@@ -31,6 +33,7 @@ const CatalogPage = () => {
   const fromMileage = useSelector(selectFromMileage);
   const toMileage = useSelector(selectToMileage);
   const isFilter = useSelector(selectIsFilter);
+  const isLoading = useSelector(selectIsLoading);
   const [filteredAdverts, setFilteredAdverts] = useState([]);
 
   const dispatch = useDispatch();
@@ -91,16 +94,19 @@ const CatalogPage = () => {
     <Container>
       <Title>Car Catalog</Title>
       <Filter />
-      <CarsList>
-        {isFilter && filteredAdverts
-          ? filteredAdverts.map((item, index) => (
-              <CarsListItem data={item} key={index} />
-            ))
-          : advertsList?.map((item, index) => (
-              <CarsListItem data={item} key={index} />
-            ))}
-      </CarsList>
-      {!isFilter && advertsList?.length % 12 === 0 && (
+      {!isLoading && (
+        <CarsList>
+          {isFilter && filteredAdverts
+            ? filteredAdverts.map((item, index) => (
+                <CarsListItem data={item} key={index} />
+              ))
+            : advertsList?.map((item, index) => (
+                <CarsListItem data={item} key={index} />
+              ))}
+        </CarsList>
+      )}
+      {isLoading && <Loader />}
+      {!isLoading && !isFilter && advertsList?.length % 12 === 0 && (
         <StyledButton type="button" onClick={handleLoadMore}>
           Load more
         </StyledButton>
