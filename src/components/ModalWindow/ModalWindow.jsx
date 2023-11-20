@@ -1,6 +1,3 @@
-import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
-import Modal from '@mui/material/Modal';
 import xIcon from '../../assets/images/x-icon.svg';
 import {
   CloseButton,

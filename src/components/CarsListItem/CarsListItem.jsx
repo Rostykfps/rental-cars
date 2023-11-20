@@ -18,7 +18,8 @@ import { selectFavorites } from '../../redux/favorite/selectors';
 import { addFavorite, removeFavorite } from '../../redux/favorite/slice';
 import ModalWindow from '../ModalWindow/ModalWindow';
 import { useState } from 'react';
-import CarInfo from '../CarInfo/CarInfo';
+import CarInfo from '../CarInfoCard/CarInfo';
+// import CarInfo from '../CarInfo/CarInfo';
 
 const CarsListItem = ({ data }) => {
   const favoritesCars = useSelector(selectFavorites);
@@ -34,7 +35,6 @@ const CarsListItem = ({ data }) => {
       return;
     }
     dispatch(removeFavorite(data));
-    console.log('test :>> ', isFavorite, data);
   };
 
   const handleOpenModal = () => {
@@ -72,7 +72,7 @@ const CarsListItem = ({ data }) => {
         </LearnMoreBtn>
       </DescriptionWrapper>
       <ModalWindow isOpen={isModalOpen} isClose={handleCloseModal}>
-        <CarInfo />
+        <CarInfo data={data} />
       </ModalWindow>
     </CarsItem>
   );

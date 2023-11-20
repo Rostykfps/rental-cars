@@ -5,10 +5,7 @@ import HomePage from './pages/Home Page/HomePage';
 import CatalogPage from './pages/CatalogPage/CatalogPage';
 import FavoritesPage from './pages/FavoritesPage/FavoritesPage';
 
-const test = import.meta.env.VITE_API_TEST;
-
 function App() {
-  console.log(test);
   return (
     <AppWrapper>
       <Routes>

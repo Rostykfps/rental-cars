@@ -42,8 +42,12 @@ export const TitleWrapper = styled.div`
   margin-bottom: 8px;
 `;
 
-export const ItemTitle = styled.p`
+export const ItemTitle = styled.h3`
   margin: 0;
+  color: #121417;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 1.5;
 `;
 
 export const ModelSpan = styled.span`

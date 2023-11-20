@@ -5,9 +5,6 @@ export const DescList = styled.ul`
   flex-wrap: wrap;
   row-gap: 4px;
 
-  /* width: 255px;
-  height: 40px; */
-
   color: rgba(18, 20, 23, 0.5);
 
   font-family: Manrope;

@@ -2,29 +2,27 @@ import { useSelector } from 'react-redux';
 import { CarsList, Container, Title } from '../CatalogPage/CatalogPage.styled';
 import { selectFavorites } from '../../redux/favorite/selectors';
 import CarsListItem from '../../components/CarsListItem/CarsListItem';
-import { Message } from './FavoritesPage.styled';
+import { Message, StyledImage } from './FavoritesPage.styled';
+import favoriteCarImg from '../../assets/images/favorite-car.png';
 
 const FavoritesPage = () => {
   const favoritesCars = useSelector(selectFavorites);
-  console.log('favoritesCars :>> ', favoritesCars);
 
   return (
     <Container>
       <Title>Favorite Car List</Title>
-      <CarsList>
-        {favoritesCars.length ? (
-          favoritesCars.map((item, index) => (
+      {favoritesCars.length ? (
+        <CarsList>
+          {favoritesCars.map((item, index) => (
             <CarsListItem data={item} key={index} />
-          ))
-        ) : (
+          ))}
+        </CarsList>
+      ) : (
+        <>
           <Message>Your favorite car list is empty...</Message>
-        )}
-      </CarsList>
-      {/* {!isFilter && advertsList?.length % 12 === 0 && (
-        <StyledButton type="button" onClick={handleLoadMore}>
-          Load more
-        </StyledButton>
-      )} */}
+          <StyledImage src={favoriteCarImg} alt="Favorite car" />
+        </>
+      )}
     </Container>
   );
 };

@@ -1,11 +1,14 @@
-import Loader from '../../components/Loader/Loader';
+// import { Title } from '../CatalogPage/CatalogPage.styled';
+import { Container, StyledLink, StyledSection, Title } from './HomePage.styled';
 
 const HomePage = () => {
   return (
-    <>
-      <p>Home page</p>
-      <Loader />
-    </>
+    <StyledSection>
+      <Container>
+        <Title>Drive the car of your dream</Title>
+        <StyledLink to={'/catalog'}>Car Catalog</StyledLink>
+      </Container>
+    </StyledSection>
   );
 };
 

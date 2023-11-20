@@ -39,7 +39,6 @@ const CatalogPage = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    // dispatch(getAllCarsThunk());
     if (page === 1 && advertsList.length === 0) {
       dispatch(getCarsByPageThunk({ page }));
       dispatch(getAllCarsThunk());
@@ -79,15 +78,11 @@ const CatalogPage = () => {
       return true;
     });
 
-    console.log('filteredAdverts :>> ', filteredAdverts);
-
     if (filteredAdverts.length > 0) {
       setFilteredAdverts(filteredAdverts);
-      // dispatch(setIsFilter(true));
       return;
     }
     setFilteredAdverts([]);
-    // dispatch(setIsFilter(false));
   }, [allAdvertsList, dispatch, fromMileage, make, price, toMileage]);
 
   return (
