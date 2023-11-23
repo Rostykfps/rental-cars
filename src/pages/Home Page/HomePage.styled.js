@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-import heroImage from '..//../assets/images/hero-image.jpg';
+import heroImage from '../../assets/images/hero-image.jpg';
 
 export const StyledSection = styled.section`
   height: calc(100vh - 69px);

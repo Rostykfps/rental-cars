@@ -4,14 +4,10 @@ import { CarsList, Container, StyledButton, Title } from './CatalogPage.styled';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   selectAdverts,
-  selectAllAdverts,
   selectIsLoading,
   selectPage,
 } from '../../redux/adverts/selectors';
-import {
-  getAllCarsThunk,
-  getCarsByPageThunk,
-} from '../../redux/adverts/operation';
+import { getCarsByPageThunk } from '../../redux/adverts/operation';
 import { setPage } from '../../redux/adverts/slice';
 import Filter from '../../components/Filter/Filter';
 import {
@@ -27,7 +23,6 @@ import Loader from '../../components/Loader/Loader';
 const CatalogPage = () => {
   const page = useSelector(selectPage);
   const advertsList = useSelector(selectAdverts);
-  const allAdvertsList = useSelector(selectAllAdverts);
   const make = useSelector(selectMake);
   const price = useSelector(selectPrice);
   const fromMileage = useSelector(selectFromMileage);
@@ -41,7 +36,6 @@ const CatalogPage = () => {
   useEffect(() => {
     if (page === 1 && advertsList.length === 0) {
       dispatch(getCarsByPageThunk({ page }));
-      dispatch(getAllCarsThunk());
     }
   }, [advertsList.length, dispatch, page]);
 
@@ -51,14 +45,15 @@ const CatalogPage = () => {
     };
   }, []);
 
-  const handleLoadMore = () => {
+  const handleLoadMore = (event) => {
+    event.preventDefault();
     const newPage = page + 1;
     dispatch(setPage(newPage));
     dispatch(getCarsByPageThunk({ page: newPage }));
   };
 
   useEffect(() => {
-    const filteredAdverts = allAdvertsList.filter((advert) => {
+    const filteredAdverts = advertsList.filter((advert) => {
       if (make && advert.make !== make) {
         return false;
       }
@@ -83,7 +78,7 @@ const CatalogPage = () => {
       return;
     }
     setFilteredAdverts([]);
-  }, [allAdvertsList, dispatch, fromMileage, make, price, toMileage]);
+  }, [dispatch, fromMileage, make, price, toMileage]);
 
   return (
     <Container>

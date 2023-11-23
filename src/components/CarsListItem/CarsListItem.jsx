@@ -19,7 +19,6 @@ import { addFavorite, removeFavorite } from '../../redux/favorite/slice';
 import ModalWindow from '../ModalWindow/ModalWindow';
 import { useState } from 'react';
 import CarInfo from '../CarInfoCard/CarInfo';
-// import CarInfo from '../CarInfo/CarInfo';
 
 const CarsListItem = ({ data }) => {
   const favoritesCars = useSelector(selectFavorites);

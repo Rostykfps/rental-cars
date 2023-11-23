@@ -10,7 +10,6 @@ import {
   PURGE,
   REGISTER,
 } from 'redux-persist';
-// import { advertsApi } from '../services/apiService';
 import { advertsReducer } from './adverts/slice';
 import { filterReducer } from './filter/slice';
 import { favoritesReducer } from './favorite/slice';
@@ -22,11 +21,6 @@ const favoritesPersistConfig = {
 };
 
 export const store = configureStore({
-  // reducer: {
-  //   [advertsApi.reducerPath]: advertsApi.reducer,
-  // },
-  // middleware: (getDefaultMiddleware) =>
-  //   getDefaultMiddleware().concat(advertsApi.middleware),
   reducer: {
     favorites: persistReducer(favoritesPersistConfig, favoritesReducer),
     adverts: advertsReducer,

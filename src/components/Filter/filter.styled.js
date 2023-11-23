@@ -1,5 +1,14 @@
 import styled from 'styled-components';
 import Select from 'react-select';
+import { Alert } from '@mui/material';
+
+export const StyledAlert = styled(Alert)`
+  position: absolute;
+  top: 160px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 100;
+`;
 
 export const StyledForm = styled.form`
   display: flex;

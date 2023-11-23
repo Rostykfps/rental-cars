@@ -3,6 +3,7 @@ import {
   InputsBlock,
   MakeSelect,
   PriceSelect,
+  StyledAlert,
   StyledButton,
   StyledForm,
   StyledInputFrom,
@@ -10,20 +11,21 @@ import {
   StyledInputTo,
   StyledLabel,
   customStyles,
-} from './filter.styled';
+} from './Filter.styled';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectFilter } from '../../redux/filter/selectors';
 import { setFilter, setIsFilter } from '../../redux/filter/slice';
 import { useState } from 'react';
-import { selectAllAdverts } from '../../redux/adverts/selectors';
+import { selectAdverts } from '../../redux/adverts/selectors';
 
 const Filter = () => {
-  const allAdvertsList = useSelector(selectAllAdverts);
+  const advertsList = useSelector(selectAdverts);
   const filter = useSelector(selectFilter);
   const [make, setMake] = useState(null);
   const [price, setPrice] = useState(0);
   const [fromMileage, setFromMileage] = useState('');
   const [toMileage, setToMileage] = useState('');
+  const [alert, setAlert] = useState(false);
   const dispatch = useDispatch();
 
   const priceRange = [];
@@ -31,8 +33,8 @@ const Filter = () => {
     priceRange.push(i);
   }
 
-  const makes = [...new Set(allAdvertsList.map((obj) => obj.make))].sort(
-    (a, b) => a.localeCompare(b),
+  const makes = [...new Set(advertsList.map((obj) => obj.make))].sort((a, b) =>
+    a.localeCompare(b),
   );
 
   const handleInputFromMileage = (event) => {
@@ -47,6 +49,13 @@ const Filter = () => {
     e.preventDefault();
 
     if (make?.value || price?.value || fromMileage || toMileage) {
+      if (
+        toMileage &&
+        Number(fromMileage.replace(/,/g, '')) >
+          Number(toMileage.replace(/,/g, ''))
+      )
+        return setAlert(true);
+      setAlert(false);
       dispatch(
         setFilter({
           ...filter,
@@ -73,6 +82,11 @@ const Filter = () => {
 
   return (
     <>
+      {alert && (
+        <StyledAlert severity="warning">
+          The final mileage cannot be less than the initial mileage!
+        </StyledAlert>
+      )}
       <StyledForm onSubmit={handleSubmit}>
         <StyledLabel>
           Car brand
@@ -122,6 +136,8 @@ const Filter = () => {
                 type="text"
                 value={formatMileage(fromMileage)}
                 onChange={handleInputFromMileage}
+                pattern="^(\d+,)*\d+$"
+                title="Mileage must be only numbers"
               />
             </InputWrapper>
           </StyledLabel>
@@ -131,6 +147,8 @@ const Filter = () => {
               type="text"
               value={formatMileage(toMileage)}
               onChange={handleInputToMileage}
+              pattern="^(\d+,)*\d+$"
+              title="Mileage must be only numbers"
             />
           </InputWrapper>
         </InputsBlock>

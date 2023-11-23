@@ -8,16 +8,14 @@ import {
 
 const ModalWindow = ({ isOpen, isClose, children }) => {
   return (
-    <div>
-      <StyledModal open={isOpen} onClose={isClose}>
-        <ModalContainer>
-          <CloseButton type="button" onClick={isClose}>
-            <CloseIcon src={xIcon} alt="Close button" />
-          </CloseButton>
-          {children}
-        </ModalContainer>
-      </StyledModal>
-    </div>
+    <StyledModal open={isOpen} onClose={isClose}>
+      <ModalContainer>
+        <CloseButton type="button" onClick={isClose}>
+          <CloseIcon src={xIcon} alt="Close button" />
+        </CloseButton>
+        {children}
+      </ModalContainer>
+    </StyledModal>
   );
 };
 

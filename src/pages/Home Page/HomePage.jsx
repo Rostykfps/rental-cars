@@ -1,4 +1,3 @@
-// import { Title } from '../CatalogPage/CatalogPage.styled';
 import { Container, StyledLink, StyledSection, Title } from './HomePage.styled';
 
 const HomePage = () => {
