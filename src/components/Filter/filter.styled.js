@@ -1,6 +1,5 @@
 import styled from 'styled-components';
 import Select from 'react-select';
-
 import { Alert } from '@mui/material';
 
 export const StyledAlert = styled(Alert)`
