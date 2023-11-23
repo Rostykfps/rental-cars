@@ -11,7 +11,7 @@ import {
   StyledInputTo,
   StyledLabel,
   customStyles,
-} from './filter.styled';
+} from './Filter.styled';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectFilter } from '../../redux/filter/selectors';
 import { setFilter, setIsFilter } from '../../redux/filter/slice';
