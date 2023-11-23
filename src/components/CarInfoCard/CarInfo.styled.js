@@ -94,7 +94,8 @@ export const ConditionsSpan = styled.span`
   line-height: 1.5;
   /* letter-spacing: -0.24px; */
 `;
-export const StyledLink = styled.button`
+export const StyledLink = styled.a`
+  display: inline-block;
   width: 168px;
   padding: 12px 50px;
   margin-top: 24px;

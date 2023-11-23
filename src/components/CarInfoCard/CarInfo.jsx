@@ -77,13 +77,7 @@ const CarInfo = ({ data }) => {
           <ConditionsSpan>{data.rentalPrice.replace('$', '')}$</ConditionsSpan>
         </ConditionsItem>
       </ConditionsList>
-      <StyledLink
-        onClick={() => {
-          window.location.href = 'tel:+380730000000';
-        }}
-      >
-        Rental car
-      </StyledLink>
+      <StyledLink href="tel:+380730000000">Rental car</StyledLink>
     </Container>
   );
 };
